@@ -1,4 +1,4 @@
-package com.orangex.care.adapter;
+package com.orangex.care.base;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
