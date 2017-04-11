@@ -13,139 +13,47 @@
 
     <com.baidu.mapapi.map.MapView
         android:id="@+id/mapView"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:clickable="true"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1">
 
     </com.baidu.mapapi.map.MapView>
 
-    <TextView
-        android:id="@+id/tv_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/mapView"
-        app:layout_constraintRight_toRightOf="@+id/mapView"
-        tools:text="湖北省武汉市洪山区珞珈创意城附近"
-        />
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_sos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        app:backgroundTint="@android:color/holo_red_light"
-        app:elevation="4dp"
-        app:fabSize="normal"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline"
-        app:layout_constraintRight_toLeftOf="@+id/fab_nearby"
-        app:layout_constraintTop_toBottomOf="@+id/mapView"
-        app:rippleColor="@android:color/holo_red_dark"
-        app:srcCompat="@drawable/ic_fab_sos" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_nearby"
+    <android.support.v7.widget.CardView
+        android:id="@+id/fragment_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        app:backgroundTint="@android:color/holo_blue_light"
-        app:elevation="4dp"
-        app:fabSize="normal"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintLeft_toRightOf="@+id/fab_sos"
-        app:layout_constraintRight_toLeftOf="@+id/fab_guard"
-        app:layout_constraintTop_toBottomOf="@+id/mapView"
-        app:rippleColor="@android:color/holo_blue_dark"
-        app:srcCompat="@drawable/ic_fab_help_nearby" />
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:minHeight="144dp"
+        app:cardElevation="4dp"
+        android:translationZ="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_guard"
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        app:backgroundTint="@android:color/holo_green_light"
-        app:elevation="4dp"
-        app:fabSize="normal"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintLeft_toRightOf="@+id/fab_nearby"
-        app:layout_constraintRight_toLeftOf="@+id/fab_setting"
-        app:layout_constraintTop_toBottomOf="@+id/mapView"
-        app:rippleColor="@android:color/holo_green_dark"
-        app:srcCompat="@drawable/ic_fab_guard" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        app:backgroundTint="@android:color/holo_orange_light"
-        app:elevation="4dp"
-        app:fabSize="normal"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintLeft_toRightOf="@+id/fab_guard"
-        app:layout_constraintRight_toLeftOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/mapView"
-        app:srcCompat="@drawable/ic_fab_setting" />
-
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="0dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp"
-        tools:layout_editor_absoluteX="395dp"
-        tools:layout_editor_absoluteY="0dp" />
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rcv_message_cards"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="16dp"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/bottom_navigation"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/guideline"
-        app:layout_constraintRight_toLeftOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@id/fab_sos"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp"
-        tools:listitem="@layout/message_cards_item">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mapView" />
 
-    </android.support.v7.widget.RecyclerView>
-
-
-    <!--<android.support.design.widget.FloatingActionButton-->
-    <!--android:id="@+id/fab"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_margin="@dimen/fab_margin"-->
-    <!--app:layout_anchor="@id/app_bar"-->
-    <!--app:layout_anchorGravity="bottom|end"-->
-    <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
 
 </android.support.constraint.ConstraintLayout>

@@ -73,9 +73,6 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/title_activity_main"></activity>
     </application>
 
 </manifest>

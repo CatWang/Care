@@ -124,10 +124,17 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
-    <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="btn_action_sos">立即求助</string>
     <string name="action_details">详情</string>
     <string name="description_card_sos">发送求助信息给我的联系人并上传至 Care 安全平台</string>
     <string name="description_card_nearby">提供附近的医院、公安、消防等信息</string>
     <string name="description_card_guard">出行前召唤一个小保镖吧，它会在你出行前后提醒你的联系人你的位置情况</string>
+    <string name="title_sos">求助</string>
+    <string name="title_nearby">附近</string>
+    <string name="title_guard">保镖</string>
+    <string name="title_setting">设置</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_location_loss">暂时没有定位到你哦</string>
 </resources>

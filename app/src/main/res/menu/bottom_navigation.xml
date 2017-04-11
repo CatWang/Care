@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_sos"
+        android:icon="@drawable/ic_fab_sos"
+        android:title="@string/title_sos" />
+
+    <item
+        android:id="@+id/navigation_nearby"
+        android:icon="@drawable/ic_fab_help_nearby"
+        android:title="@string/title_nearby" />
+
+    <item
+        android:id="@+id/navigation_guard"
+        android:icon="@drawable/ic_fab_guard"
+        android:title="@string/title_guard" />
+    <item
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/ic_fab_setting"
+        android:title="@string/title_setting" />
+
+
+</menu>
