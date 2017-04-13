@@ -11,6 +11,11 @@ import com.orangex.care.R;
 
 public class GuardFragment extends BaseFragment {
     @Override
+    protected void initData() {
+    
+    }
+    
+    @Override
     protected void initView(View view, Bundle savedInstanceState) {
         
     }

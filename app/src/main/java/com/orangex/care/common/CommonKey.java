@@ -15,4 +15,9 @@ public class CommonKey {
     public static final String MESSAGE_CARD_TYPE_TIP = "tip";
     
     
+    public static final String TYPE_HOSPITAL = "医院";
+    public static final String TYPE_119 = "消防";
+    public static final String TYPE_POLICE = "公安";
+    public static final String TYPE_WC = "厕所";
+    
 }

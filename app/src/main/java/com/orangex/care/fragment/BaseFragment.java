@@ -4,16 +4,19 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.baidu.location.BDLocation;
 
 import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    protected static final String ARG_PARAM1 = "param1";
     
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -59,6 +62,14 @@ public abstract class BaseFragment extends Fragment {
         return view;
     }
     
+    @Override
+    public final void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initData();
+    }
+    
+    protected abstract void initData();
+    
     protected abstract void initView(View view, Bundle savedInstanceState);
     
     protected abstract int getLayoutID();
@@ -80,8 +91,9 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        //        mListener = null;
     }
     
-    
+    public interface IBaseFragment {
+        BDLocation getCurrentLocation();
+    }
 }

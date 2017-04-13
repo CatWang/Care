@@ -3,21 +3,25 @@
 
     <item
         android:id="@+id/navigation_sos"
-        android:icon="@drawable/ic_fab_sos"
+        android:icon="@drawable/ic_nav_sos"
+        android:checkable="true"
         android:title="@string/title_sos" />
 
     <item
         android:id="@+id/navigation_nearby"
-        android:icon="@drawable/ic_fab_help_nearby"
+        android:icon="@drawable/ic_nav_nearby"
+        android:checkable="true"
         android:title="@string/title_nearby" />
 
     <item
         android:id="@+id/navigation_guard"
-        android:icon="@drawable/ic_fab_guard"
+        android:icon="@drawable/ic_nav_guard"
+        android:checkable="true"
         android:title="@string/title_guard" />
     <item
         android:id="@+id/navigation_setting"
-        android:icon="@drawable/ic_fab_setting"
+        android:icon="@drawable/ic_nav_setting"
+        android:checkable="true"
         android:title="@string/title_setting" />
 
 

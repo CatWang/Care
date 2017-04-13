@@ -9,6 +9,7 @@ import com.orangex.care.R;
 
 import butterknife.BindView;
 
+
 /**
  * Created by orangex on 2017/4/9.
  */
@@ -18,8 +19,13 @@ public class SosFragment extends BaseFragment {
     TextView locationTextView;
     
     @Override
+    protected void initData() {
+    
+    }
+    
+    @Override
     protected void initView(View view, Bundle savedInstanceState) {
-        BDLocation location = ((ISosFragment) mActivity).getCurrentLocation();
+        BDLocation location = ((IBaseFragment) mActivity).getCurrentLocation();
         String loc;
         if (location == null) {
             loc = getString(R.string.error_location_loss);
@@ -35,7 +41,5 @@ public class SosFragment extends BaseFragment {
         return R.layout.fragment_sos;
     }
     
-    public interface ISosFragment {
-        BDLocation getCurrentLocation();
-    }
+    
 }

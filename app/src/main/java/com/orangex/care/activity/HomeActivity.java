@@ -1,5 +1,6 @@
 package com.orangex.care.activity;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ComponentName;
@@ -15,6 +16,7 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -22,6 +24,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.ashokvarma.bottomnavigation.BottomNavigationBar;
+import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.map.BaiduMap;
@@ -44,6 +48,7 @@ import com.orangex.care.R;
 import com.orangex.care.fragment.BaseFragment;
 import com.orangex.care.fragment.GuardFragment;
 import com.orangex.care.fragment.NearbyFragment;
+import com.orangex.care.fragment.SettingFragment;
 import com.orangex.care.fragment.SosFragment;
 import com.orangex.care.model.CareUser;
 import com.orangex.care.model.Contact;
@@ -60,7 +65,8 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 
 
-public class HomeActivity extends AppCompatActivity implements CareService.ICareService, SosFragment.ISosFragment {
+public class HomeActivity extends AppCompatActivity implements CareService.ICareService, BaseFragment.IBaseFragment {
+    
     private static final String TAG = "HomeActivity";
     private static final String FRAGMENT_TAG_SOS = "sos";
     private static final String FRAGMENT_TAG_NEARBY = "nearby";
@@ -68,7 +74,12 @@ public class HomeActivity extends AppCompatActivity implements CareService.ICare
     private static final String FRAGMENT_TAG_SETTING = "setting";
     @BindView(R.id.mapView)
     MapView mMapView;
-
+    
+    @BindView(R.id.bottom_navigation_view)
+    BottomNavigationBar mBottomNavigationView;
+    
+    @BindView(R.id.fragment_container)
+    CardView mFragmentContainer;
     
     private BaiduMap mMap;
     private LocationClient mLocationClient = null;
@@ -81,13 +92,14 @@ public class HomeActivity extends AppCompatActivity implements CareService.ICare
     private Sensor mMagneticSensor;
     private double mZAngle;
     
-    @BindView(R.id.bottom_navigation_view)
-    BottomNavigationView mBottomNavigationView;
-    
 
     
-    
     private BDLocation mCurrentLocation;
+    
+    private SosFragment mSosFragment;
+    private NearbyFragment mNearbyFragment;
+    private GuardFragment mGuardFragment;
+    private SettingFragment mSettingFragment;
     
     
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -95,7 +107,14 @@ public class HomeActivity extends AppCompatActivity implements CareService.ICare
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_sos:
-                    switchFragment(FRAGMENT_TAG_SOS);
+                    if (item.isChecked()) {
+                        item.setChecked(false);
+                        mFragmentContainer.setVisibility(View.INVISIBLE);
+                    } else {
+                        mFragmentContainer.setVisibility(View.VISIBLE);
+                        switchFragment(FRAGMENT_TAG_SOS);
+                    }
+                    
                     break;
                 case R.id.navigation_nearby:
                     switchFragment(FRAGMENT_TAG_NEARBY);
@@ -110,13 +129,79 @@ public class HomeActivity extends AppCompatActivity implements CareService.ICare
                     break;
             }
             return true;
+    
         }
         
         
     };
-    private SosFragment mSosFragment;
-    private NearbyFragment mNearbyFragment;
-    private GuardFragment mGuardFragment;
+    
+    
+    private BottomNavigationBar.OnTabSelectedListener mOnTabSelectedListener = new BottomNavigationBar.OnTabSelectedListener() {
+        boolean[] flag = new boolean[]{false, false, false, true};
+        
+        @Override
+        public void onTabSelected(int position) {
+            switch (position) {
+                case 0:
+                    switchFragment(FRAGMENT_TAG_SOS);
+                    break;
+                case 1:
+                    switchFragment(FRAGMENT_TAG_NEARBY);
+                    break;
+                case 2:
+                    switchFragment(FRAGMENT_TAG_GUARD);
+                    break;
+                case 3:
+                    switchFragment(FRAGMENT_TAG_SETTING);
+                    break;
+                default:
+                    break;
+            }
+            flag[position] = true;
+            mFragmentContainer.setVisibility(View.VISIBLE);
+        }
+        
+        @Override
+        public void onTabUnselected(int position) {
+            flag[position] = false;
+        }
+        
+        @Override
+        public void onTabReselected(int position) {
+            if (flag[position]) {
+                mFragmentContainer.setVisibility(View.INVISIBLE);
+                flag[position] = false;
+            } else {
+                mFragmentContainer.setVisibility(View.VISIBLE);
+                flag[position] = true;
+            }
+        }
+    };
+    
+    
+    private void removeFragment(String tag) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        Fragment remove = null;
+        switch (tag) {
+            case FRAGMENT_TAG_SOS:
+                remove = mSosFragment;
+                break;
+            case FRAGMENT_TAG_NEARBY:
+                remove = mNearbyFragment;
+                break;
+            case FRAGMENT_TAG_GUARD:
+                remove = mGuardFragment;
+                break;
+            case FRAGMENT_TAG_SETTING:
+                remove = mSettingFragment;
+                break;
+            default:
+                break;
+        }
+        transaction.remove(remove);
+        transaction.commit();
+    }
     
     @Override
     
@@ -143,9 +228,18 @@ public class HomeActivity extends AppCompatActivity implements CareService.ICare
             }
         }, Context.BIND_AUTO_CREATE);
     
+        switchFragment(FRAGMENT_TAG_SETTING);
     
-        mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        setDefaultFragment();
+        mBottomNavigationView.setTabSelectedListener(mOnTabSelectedListener);
+        mBottomNavigationView
+                .addItem(new BottomNavigationItem(R.drawable.ic_nav_sos, getString(R.string.title_sos)))
+                .addItem(new BottomNavigationItem(R.drawable.ic_nav_nearby, getString(R.string.title_nearby)))
+                .addItem(new BottomNavigationItem(R.drawable.ic_nav_guard, getString(R.string.title_guard)))
+                .addItem(new BottomNavigationItem(R.drawable.ic_nav_setting, getString(R.string.title_setting)))
+                .setFirstSelectedPosition(3)
+                .initialise();
+        
+        
         initMap();
         ViewGroup viewGroup = (ViewGroup) findViewById(R.id.fragment_container);
         viewGroup.setOnTouchListener(new View.OnTouchListener() {
@@ -161,7 +255,7 @@ public class HomeActivity extends AppCompatActivity implements CareService.ICare
     private void switchFragment(String tag) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        BaseFragment switchTo = null;
+        Fragment switchTo = null;
         switch (tag) {
             case FRAGMENT_TAG_SOS:
                 if (mSosFragment == null) {
@@ -182,6 +276,10 @@ public class HomeActivity extends AppCompatActivity implements CareService.ICare
                 switchTo = mGuardFragment;
                 break;
             case FRAGMENT_TAG_SETTING:
+                if (mSettingFragment == null) {
+                    mSettingFragment = new SettingFragment();
+                }
+                switchTo = mSettingFragment;
                 break;
             default:
                 break;
@@ -191,47 +289,10 @@ public class HomeActivity extends AppCompatActivity implements CareService.ICare
         transaction.commit();
     }
     
-    private void setDefaultFragment() {
-        switchFragment(FRAGMENT_TAG_SOS);
-        
-    }
     
     
-    private void showNearbyInfo() {
-       PoiSearch poiSearch = PoiSearch.newInstance();
-       poiSearch.setOnGetPoiSearchResultListener(new OnGetPoiSearchResultListener() {
-           @Override
-           public void onGetPoiResult(PoiResult poiResult) {
-               for (PoiInfo poiInfo : poiResult.getAllPoi()) {
-                   Log.i(TAG, "onGetPoiResult: " + poiInfo.name+poiInfo.address + poiInfo.phoneNum);
-               }
-           }
     
-           @Override
-           public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
-        
-           }
     
-           @Override
-           public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
-        
-           }
-       });
-//       poiSearch.searchInCity((new PoiCitySearchOption().city("北京").keyword("公共厕所").pageNum(10)));
-       LatLng latLng = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-       poiSearch.searchNearby(new PoiNearbySearchOption().location(latLng).radius(10000).keyword("医院").pageNum(10));
-//               .city("北京")
-//               .keyword("ktv")
-//               .pageNum(10));
-//       poiSearch.searchNearby(new PoiNearbySearchOption())
-//               .
-//               .location()
-//       PoiNearbySearchOption option = new PoiNearbySearchOption().location(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude())).keyword("医院");
-//
-//       poiSearch.searchNearby(option);
-            
-       
-    }
     
     private void sendSosMessage() {
         CareUser currentUser = ObjectUtil.checkIsNull(BmobUser.getCurrentUser(CareUser.class));
@@ -242,16 +303,16 @@ public class HomeActivity extends AppCompatActivity implements CareService.ICare
         } else {
             for (Contact contact : currentUser.getContactList()
                     ) {
-                SimpleDateFormat format =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String sendTime = null;
                 BmobSMS.requestSMS(contact.getPhoneNumber(), "Care提醒您!您的联系人" + currentUser.getMobilePhoneNumber() + "正遭遇紧急情况。此时他（她）正位于『" + "』,请您留意!", sendTime, new QueryListener<Integer>() {
                     @Override
                     public void done(Integer integer, BmobException e) {
                         if (e != null) {
-                    
+    
                             Log.e(TAG, "SMSdone: " + integer);
                         } else {
-                    
+    
                         }
                     }
                 });
@@ -368,10 +429,35 @@ public class HomeActivity extends AppCompatActivity implements CareService.ICare
     
     }
     
-    
+    @Override
     public BDLocation getCurrentLocation() {
         return mCurrentLocation;
     }
-
+    
+    private void requestPoi() {
+        PoiSearch poiSearch = PoiSearch.newInstance();
+        poiSearch.setOnGetPoiSearchResultListener(new OnGetPoiSearchResultListener() {
+            @Override
+            public void onGetPoiResult(PoiResult poiResult) {
+                for (PoiInfo poiInfo : poiResult.getAllPoi()) {
+                    Log.i(TAG, "onGetPoiResult: " + poiInfo.name + poiInfo.address + poiInfo.phoneNum);
+                }
+            }
+            
+            @Override
+            public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
+                
+            }
+            
+            @Override
+            public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
+                
+            }
+        });
+        //       poiSearch.searchInCity((new PoiCitySearchOption().city("北京").keyword("公共厕所").pageNum(10)));
+        LatLng latLng = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+        poiSearch.searchNearby(new PoiNearbySearchOption().location(latLng).radius(10000).keyword("医院").pageNum(10));
+    }
+    
     
 }
