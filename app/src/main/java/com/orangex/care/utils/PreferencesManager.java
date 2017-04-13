@@ -3,7 +3,7 @@ package com.orangex.care.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import static com.orangex.care.common.PreferenceKey.PREF_NAME;
+import static com.orangex.care.common.CommonKey.PREF_NAME;
 
 /**
  * Created by orangex on 2017/2/22.
