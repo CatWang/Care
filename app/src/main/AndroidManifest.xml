@@ -73,6 +73,8 @@
             android:enabled="true"
             android:exported="false" />
 
+        <activity android:name=".activity.NotificationActivity" />
+        <activity android:name=".activity.ContactsActivity"></activity>
     </application>
 
 </manifest>

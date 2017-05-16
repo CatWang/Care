@@ -3,10 +3,13 @@ package com.orangex.care.activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -16,12 +19,14 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -80,6 +85,9 @@ public class HomeActivity extends AppCompatActivity implements CareService.ICare
     
     @BindView(R.id.fragment_container)
     CardView mFragmentContainer;
+    
+    @BindView(R.id.btn_notification)
+    Button mNotificationBtn;
     
     private BaiduMap mMap;
     private LocationClient mLocationClient = null;
@@ -249,7 +257,25 @@ public class HomeActivity extends AppCompatActivity implements CareService.ICare
             }
         });
     
+        mNotificationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, NotificationActivity.class));
+            }
+        });
     
+    
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        Notification notification = builder
+                .setContentTitle("好友邀请")
+                .setContentText("用户王大妈(189xxxx6819)想要设置您为(特殊)亲密人")
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(
+                        getResources(), R.mipmap.ic_launcher))
+                .build();
+        manager.notify(1, notification);
     }
     
     private void switchFragment(String tag) {
