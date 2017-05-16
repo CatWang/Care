@@ -2,6 +2,93 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="170dp">
+
+
+
+    <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/guard_time" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guard_spin_day"
+            android:gravity="center"
+            android:entries="@array/guard_day_arr"></android.support.v7.widget.AppCompatSpinner>
+
+        <TextView
+            android:layout_marginLeft="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/guard_day"/>
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:layout_marginLeft="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guard_spin_hour"
+            android:gravity="center"
+            android:entries="@array/guard_hour_arr"></android.support.v7.widget.AppCompatSpinner>
+
+        <TextView
+            android:layout_marginLeft="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/guard_hour"/>
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:layout_marginLeft="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guard_spin_min"
+            android:layout_gravity="center"
+            android:entries="@array/guard_minute_arr"></android.support.v7.widget.AppCompatSpinner>
+
+        <TextView
+            android:layout_marginLeft="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/guard_min"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/guard_spot" />
+
+    <EditText
+        android:id="@+id/guard_spot_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:minHeight="48dp"
+        android:text="@string/guard_spot_hint"
+        android:textAllCaps="true"
+        android:textColor="@color/black_overlay" />
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:src="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/btn_guard"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:text="@string/guard_btn_string" />
 
 </LinearLayout>

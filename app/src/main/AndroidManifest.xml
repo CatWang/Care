@@ -61,8 +61,10 @@
         </activity>
         <activity
             android:name=".activity.HomeActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/title_activity_home"
-            android:theme="@style/HomeScreen" />
+            android:theme="@style/HomeScreen"
+            />
 
         <service
             android:name="com.baidu.location.f"

@@ -2,6 +2,170 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="690dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/setting_avatar"
+        android:layout_marginTop="10dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/person"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/setting_telephone"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/black_overlay"
+        android:textSize="16dp"
+        android:text="175****0323"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/setting_name"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="26dp"
+        android:text="王孜晗"/>
+
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:src="@android:color/darker_gray" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/pic_mod_pwd"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/pic_1"
+            />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/pic_mod_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="修改密码"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/pic_mod_oper"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/pic_1"
+            />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/pic_mod_oper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="修改操作码"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/pic_op_people"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/pic_1"
+            />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/pic_op_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="联系人管理"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/pic_ver_police"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/pic_1"
+            />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/pic_ver_police"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="警员验证"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:src="@android:color/darker_gray" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/pic_exit"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/pic_1"
+            />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/pic_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="退出"/>
+
+    </RelativeLayout>
+
+
 
 </LinearLayout>
